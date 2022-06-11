@@ -6,6 +6,10 @@
   "description": "like rust range but with string",
   "author": "hehehai <riverhohai@gmail.com>",
   "license": "MIT",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
   "homepage": "https://github.com/hehehai/srange#readme",
   "repository": {
     "type": "git",
