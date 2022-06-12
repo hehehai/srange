@@ -37,11 +37,11 @@ assert!( (f32::NAN..5.0).is_empty());
 
 ## TODO
 
-- [-] typescript format string type
-- [-] generator array sequence
-- [-] reverse order
+- [x] typescript format string type
+- [x] generator array sequence
+- [x] reverse order
 - [-] float number range
-- [-] a-z and A-Z array sequence
+- [x] a-z and A-Z array sequence
 - [-] custom preset items then generator range array sequence
 
 - [-] tests
