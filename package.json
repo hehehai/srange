@@ -1,7 +1,7 @@
 {
   "name": "@hehehai/srange",
   "type": "module",
-  "version": "0.0.2-beta.1",
+  "version": "0.1.0-beta.1",
   "packageManager": "pnpm@7.1.5",
   "description": "like rust range but with string",
   "author": "hehehai <riverhohai@gmail.com>",
