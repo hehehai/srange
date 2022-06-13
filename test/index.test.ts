@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { rangeChar, rangeInt, split } from '../src/index'
+import { rangeChar, rangeFloat, rangeInt, split } from '../src/index'
 
 describe('should', () => {
   it('split', () => {
@@ -352,6 +352,97 @@ describe('should', () => {
         "h",
         "g",
         "f",
+      ]
+    `)
+  })
+
+  it('rangeFloat', () => {
+    expect(rangeFloat('0.0..1.0')).toMatchInlineSnapshot(`
+      [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+      ]
+    `)
+
+    expect(rangeFloat('0.0..=1.0')).toMatchInlineSnapshot(`
+      [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+        1,
+      ]
+    `)
+    expect(rangeFloat('..1.0')).toMatchInlineSnapshot(`
+      [
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
+      ]
+    `)
+    expect(rangeFloat('1.7..1.80')).toMatchInlineSnapshot(`
+      [
+        1.7,
+        1.71,
+        1.72,
+        1.73,
+        1.74,
+        1.75,
+        1.76,
+        1.77,
+        1.78,
+        1.79,
+      ]
+    `)
+    expect(rangeFloat('1.7..1.2')).toMatchInlineSnapshot(`
+      [
+        1.7,
+        1.6,
+        1.5,
+        1.4,
+        1.3,
+      ]
+    `)
+    expect(rangeFloat('-0.7..1')).toMatchInlineSnapshot(`
+      [
+        -0.7,
+        -0.6,
+        -0.5,
+        -0.4,
+        -0.3,
+        -0.2,
+        -0.1,
+        0,
+        0.1,
+        0.2,
+        0.3,
+        0.4,
+        0.5,
+        0.6,
+        0.7,
+        0.8,
+        0.9,
       ]
     `)
   })

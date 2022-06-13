@@ -81,3 +81,25 @@ export function rangeChar(v: SRange<string>) {
 
   return [String.fromCharCode(s)]
 }
+
+function getDecimalLen(v = ''): number {
+  const dotIdx = v.indexOf('.')
+  if (dotIdx !== -1)
+    return v.length - dotIdx - 1
+
+  return 0
+}
+
+// 0.0..1.0 => [0.0, ~, 0.9]
+// 0.0..=1.0 => [0.0, ~, 1.0]
+export function rangeFloat(v: SRange<number>) {
+  const rangeInfo = split(v)
+
+  const setup
+    = 10 ** Math.max(getDecimalLen(rangeInfo.start), getDecimalLen(rangeInfo.end))
+
+  const s = Number.parseFloat(rangeInfo.start) || 0
+  const e = Number.parseFloat(rangeInfo.end)
+
+  return rangeInt(`${s * setup}..${rangeInfo.hasEq ? '=' : ''}${e * setup}`).map(i => i / setup)
+}
