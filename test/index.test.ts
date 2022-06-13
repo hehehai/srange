@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { rangeChar, rangeFloat, rangeInt, split } from '../src/index'
+import { rangeArr, rangeChar, rangeFloat, rangeInt, split } from '../src/index'
 
 describe('should', () => {
   it('split', () => {
@@ -445,5 +445,49 @@ describe('should', () => {
         0.9,
       ]
     `)
+  })
+
+  it('rangeArr', () => {
+    const animals = ['ant', 'bison', 'camel', 'duck', 'elephant']
+    expect(rangeArr(animals, '0..2')).toMatchInlineSnapshot(`
+      [
+        "ant",
+        "bison",
+      ]
+    `)
+    expect(rangeArr(animals, '0..=2')).toMatchInlineSnapshot(`
+      [
+        "ant",
+        "bison",
+        "camel",
+      ]
+    `)
+    expect(rangeArr(animals, '..2')).toMatchInlineSnapshot(`
+      [
+        "ant",
+        "bison",
+      ]
+    `)
+    expect(rangeArr(animals, '1..8')).toMatchInlineSnapshot(`
+      [
+        "bison",
+        "camel",
+        "duck",
+        "elephant",
+      ]
+    `)
+    expect(rangeArr(animals, '1..-2')).toMatchInlineSnapshot(`
+      [
+        "bison",
+        "camel",
+      ]
+    `)
+    expect(rangeArr(animals, '-2..-1')).toMatchInlineSnapshot(`
+      [
+        "duck",
+      ]
+    `)
+    expect(rangeArr(animals, '-1..-3')).toMatchInlineSnapshot('[]')
+    expect(rangeArr(animals, '6..8')).toMatchInlineSnapshot('[]')
   })
 })

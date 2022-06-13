@@ -40,11 +40,11 @@ assert!( (f32::NAN..5.0).is_empty());
 - [x] typescript format string type
 - [x] generator array sequence
 - [x] reverse order
-- [-] float number range
+- [x] float number range
 - [x] a-z and A-Z array sequence
-- [-] custom preset items then generator range array sequence
+- [x] custom preset items then generator range array sequence
 
-- [-] tests
+- [x] tests
 
 ## scenarios
 

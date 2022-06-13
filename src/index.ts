@@ -96,10 +96,25 @@ export function rangeFloat(v: SRange<number>) {
   const rangeInfo = split(v)
 
   const setup
-    = 10 ** Math.max(getDecimalLen(rangeInfo.start), getDecimalLen(rangeInfo.end))
+    = 10
+    ** Math.max(getDecimalLen(rangeInfo.start), getDecimalLen(rangeInfo.end))
 
   const s = Number.parseFloat(rangeInfo.start) || 0
   const e = Number.parseFloat(rangeInfo.end)
 
-  return rangeInt(`${s * setup}..${rangeInfo.hasEq ? '=' : ''}${e * setup}`).map(i => i / setup)
+  return rangeInt(
+    `${s * setup}..${rangeInfo.hasEq ? '=' : ''}${e * setup}`,
+  ).map(i => i / setup)
+}
+
+export function rangeArr<T>(arr: T[], v: SRange<number>): T[] {
+  const setup = 1
+  const rangeInfo = split(v)
+  const s = Number.parseInt(rangeInfo.start) || 0
+  let e = Number.parseInt(rangeInfo.end)
+  e += (e < 0 ? -1 : +1) * (rangeInfo.hasEq ? setup : 0)
+  if (s === e)
+    return [arr[s]]
+
+  return arr.slice(s, e)
 }
