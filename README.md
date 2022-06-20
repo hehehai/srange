@@ -4,7 +4,7 @@
   <img alt="logo" src="./docs/logo.png" style="width: 140px; text-align: center"/>
 </p>
 
-[![NPM version](https://img.shields.io/npm/v/pkg-name?color=a1b858&label=)](https://www.npmjs.com/package/pkg-name)
+[![NPM version](https://img.shields.io/npm/v/@hehehai/srange?color=a1b858&label=)](https://www.npmjs.com/package/@hehehai/srange)
 
 ## install
 
