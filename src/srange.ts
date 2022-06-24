@@ -22,6 +22,15 @@ export interface SplitData<T> {
   hasEq: boolean
 }
 
+/**
+ * split form the range string
+ *
+ * examples:
+ * split('..2') -> {start: '', end: '2', hasEq: false}
+ * split('a..=f') -> {start: 'a', end: 'f', hasEq: true}
+ *
+ * @param v range format string
+ */
 export function split<T extends RangeType>(
   v: SRange<T>,
 ): SplitData<string> {
@@ -35,6 +44,19 @@ export function split<T extends RangeType>(
   }
 }
 
+/**
+ * split form string and with transform function
+ *
+ * examples:
+ * split('..2', {transform: Number.parseInt, startDefault: 0})
+ * -> {start: 0, end: 2, hasEq: false}
+ *
+ * split('a..=f', {transform: x => x.charCodeAt(0), startDefault: 97})
+ * -> {start: 97, end: 102, hasEq: true}
+ *
+ * @param v range format string
+ * @param options transform options
+ */
 export function splitWith<T extends RangeType, V>(
   v: SRange<T>,
   options: SplitOptions<V>,
@@ -52,6 +74,19 @@ export function splitWith<T extends RangeType, V>(
   }
 }
 
+/**
+ * generate int range sequence by range format
+ *
+ * examples:
+ * rangeInt('0..10') -> [0, ..., 9]
+ * rangeInt('0..=10') -> [0, ..., 10]
+ * rangeInt('-3..=10') -> [-3, ..., 10]
+ * rangeInt('..10') -> [0, ..., 9]
+ * rangeInt('..=10') -> [0, ..., 10]
+ * rangeInt('-3..0') -> [-3, -2, -1]
+ *
+ * @param val range format string
+ */
 export function rangeInt(val: SRange<number>) {
   const setup = 1
   const splitData = splitWith(val, {
@@ -62,6 +97,19 @@ export function rangeInt(val: SRange<number>) {
   return genSequence(splitData, setup)
 }
 
+/**
+ * generate char range sequence by range format
+ *
+ * examples:
+ * rangeChar('a..f') -> ['a', ..., 'e']
+ * rangeChar('f..k') -> ['f', ..., 'j']
+ * rangeChar('A..=F') -> ['A', ..., 'F']
+ * rangeChar('..f') -> ['a', ..., 'e']
+ * rangeChar('..=f') -> ['a', ..., 'f']
+ * rangeChar('a..=f') -> ['a', ..., 'f']
+ *
+ * @param val range format string
+ */
 export function rangeChar(val: SRange<string>) {
   const setup = 1
   const splitData = splitWith(val, {
@@ -72,6 +120,19 @@ export function rangeChar(val: SRange<string>) {
   return genSequence(splitData, setup, String.fromCharCode)
 }
 
+/**
+ * generate int range sequence by range format
+ *
+ * examples:
+ * rangeFloat('0.0..1.0') -> [0, ..., 0.9]
+ * rangeFloat('0.0..=1.0') -> [0, ..., 0.9, 1]
+ * rangeFloat('..1.0') -> [0, ..., 0.9]
+ * rangeFloat('1.7..1.80') -> [1.7, ..., 1.79]
+ * rangeFloat('1.7..1.2') -> [1.7, ..., 1.3]
+ * rangeFloat('-0.7..1') -> [-0.7, ..., 0.9]
+ *
+ * @param val range format string
+ */
 export function rangeFloat(val: SRange<number>) {
   const splitData = split(val)
 
@@ -87,6 +148,24 @@ export function rangeFloat(val: SRange<number>) {
   ).map(i => i / setup)
 }
 
+/**
+ * slice arr by range format string
+ *
+ * examples:
+ * const animals = ['ant', 'bison', 'camel', 'duck', 'elephant']
+ *
+ * rangeArr(animals, '0..2') -> ['ant', 'bison']
+ * rangeArr(animals, '0..=2') -> ['ant', 'bison', 'camel']
+ * rangeArr(animals, '..2') -> ['ant', 'bison']
+ * rangeArr(animals, '1..8') -> ['bison', ..., 'elephant']
+ * rangeArr(animals, '1..-2') -> ['bison', 'camel']
+ * rangeArr(animals, '-2..-1') -> ['duck']
+ * rangeArr(animals, '-1..-3') -> []
+ * rangeArr(animals, '6..8') -> []
+ *
+ * @param arr
+ * @param val range format string
+ */
 export function rangeArr<T>(arr: T[], val: SRange<number>): T[] {
   const setup = 1
   const splitData = splitWith(val, {
